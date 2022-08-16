@@ -1,9 +1,7 @@
-let ddEl = $('#com-dropdown');
-ddEl.on('click', function(event){
-    
+// When one of the dropdown items is selected 
+$('#com-dropdown').on('click', function(event){
     let buttonPsd = $(event.target);
-    console.log( buttonPsd.attr('id') );
     let dropDown = $('#dropDownTxt');
+    // the text of dropDown is changed to notify user of the state.
     dropDown.text(buttonPsd.attr('id'));
 });
-

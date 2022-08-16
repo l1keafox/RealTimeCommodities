@@ -57,11 +57,20 @@ function getSpecificApi(endpoint, usa) {
   });
 }
 
+let stringTooSymbol = {
+  'gold': 'GBP',
+  'oil': 'BRENTOIL',
+  'crude': 'BRENTOIL',
+  'silver': 'XAG',
+  'wheat': 'WHEAT',
+  'corn': 'CORN'
+}
 
 $('#fetch-button').on('click',function(event){
   let dropDown = $('#dropDownTxt');
   let commSelect= $(dropDown[0]).text();
-  console.log("Fetching "+commSelect);
+  let currentcy = "USD";
+  console.log("Fetching "+commSelect ,"SYM : " + stringTooSymbol[commSelect] ," Currency: ",currentcy );
   getSpecificApi();
 });
 
