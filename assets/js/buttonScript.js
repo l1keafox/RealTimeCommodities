@@ -1,7 +1,3 @@
-
-
-console.log('test');
-
 let ddEl = $('#com-dropdown');
 ddEl.on('click', function(event){
     
