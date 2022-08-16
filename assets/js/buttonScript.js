@@ -7,8 +7,3 @@ ddEl.on('click', function(event){
     dropDown.text(buttonPsd.attr('id'));
 });
 
-
-$('#submitButton').on('click',function(event){
-    let dropDown = $('#dropDownTxt');
-    console.log( $(dropDown[0]).text() );
-});

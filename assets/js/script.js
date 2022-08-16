@@ -56,4 +56,12 @@ function getSpecificApi(endpoint, usa) {
     },
   });
 }
-fetchButton.addEventListener("click", getSpecificApi);
+
+
+$('#fetch-button').on('click',function(event){
+  let dropDown = $('#dropDownTxt');
+  let commSelect= $(dropDown[0]).text();
+  console.log("Fetching "+commSelect);
+  getSpecificApi();
+});
+
