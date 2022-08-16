@@ -1,31 +1,42 @@
 google.charts.load('current', {'packages':['corechart']});
-
-      // Set a callback to run when the Google Visualization API is loaded.
       google.charts.setOnLoadCallback(drawChart);
-
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
       function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Mon', 20, 28, 38, 40]
+          // Treat the first row as data.
+        ], true);
 
-        // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Slices');
-        data.addRows([
-          ['Mushrooms', 3],
-          ['Onions', 1],
-          ['Olives', 1],
-          ['Zucchini', 1],
-          ['Pepperoni', 2]
-        ]);
+        var options = {
+          legend: 'none',
+          bar: { groupWidth: '100%' }, // Remove space between bars.
+          candlestick: {
+            fallingColor: { strokeWidth: 0, fill: '#a52714' }, // red
+            risingColor: { strokeWidth: 0, fill: '#0f9d58' }   // green
+          }
+        };
 
-        // Set chart options
-        var options = {'title':'How Much Pizza I Ate Last Night',
-                       'width':400,
-                       'height':300};
-
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
         chart.draw(data, options);
       }
+
+//A class describing a single candlestick.
+class timeframeSnapshot{
+    constructor(date,high,open,close,low){
+        this.date=date;
+        this.open=open;
+        this.close=close;
+        this.low=low;
+    }
+    returnArray(){
+        return [this.low,this.open,this.close,this.high];
+    }
+}
+
+//class to describe entire chart, should perhaps be integrated with Vian's api calls directly, or alternatively will be built out to take whatever data she fetches as a param.
+class candleChartData{
+    constructor(bins,symbol,startDate,){
+        this.bins=bins;
+        this.symbol=symbol;
+        this.startDate=startDate;
+    }
+}
