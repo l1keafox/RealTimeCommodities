@@ -21,15 +21,19 @@ function next(data) {
   tempData.test = "this is my test";
   return tempData;
 }
-//CANT HANDLE NULL INPUT
-function getCommodityBySymbol(symbol, currency, date) {
+
+//Modified to take date object as a param, formats in function
+function getCommodityBySymbol(symbol, currency, date,forChart ) {
+  //CANT HANDLE NULL INPUT
+  // c2d7493df4aabdeb7d5738fcbde8f28250fc0b69
   var access_key =
     //"ljdbuf72k16ob3i9jqscexucnfazsxi7l4deffx4d8w9ws8iyx7y0f2vp971"; // vian's key
     "5j9z3tm51x3q548swpzl0chbh4o5html88lm1htqpcbmdkwtgzl7f5boy4r2"; // raymond's key
   var base = "&base=" + symbol;
   var symbols = "&symbols=" + currency;
-  let dtz = fetch("https://commodities-api.com/api/open-high-low-close/" +
-        date +
+  let dateString = date.getFullYear()+ '-' + date.getMonth() +'-'+date.getDate();
+  fetch("https://commodities-api.com/api/open-high-low-close/" +
+        dateString +
         "?access_key=" +
         access_key +
         base +
@@ -42,9 +46,9 @@ function getCommodityBySymbol(symbol, currency, date) {
     console.log('close',request.rates.close);
     console.log('low',request.rates.low);
     console.log('open',request.rates.open);
+    forChart.addCandle(new Candle(date,request.rates.open,request.rates.low,request.rates.high,request.rates.close));
     return request.rates;
     })
-    console.log('dtz:',dtz);
 }
 
 let stringTooSymbol = {
@@ -61,16 +65,21 @@ $("#fetch-button").on("click", function (event) {
   let commSelect = $(dropDown[0]).text();
   let currency = "USD";
   let today = new Date();
-  let todayString =
-    today.getFullYear() + "-" + today.getMonth() + "-" + today.getDate();
-  console.log(
-    "Fetching " + commSelect,
-    "SYM : " + stringTooSymbol[commSelect],
-    " Currency: ",
-    currency
-  );
-  getCommodityBySymbol(stringTooSymbol[commSelect], currency, todayString);
+  let todayString = today.getFullYear()+ '-' + today.getMonth() +'-'+today.getDate();
+  console.log("Fetching "+commSelect ,"SYM : " + stringTooSymbol[commSelect] ," Currency: ",currency );
+  var chart=new CandleChartData(7,stringTooSymbol[commSelect],todayString,[]);
+  for (var i=0;i<chart.bins;i++){
+    getCommodityBySymbol(stringTooSymbol[commSelect],currency,getStringOfOffsetDate(-1*i),chart);
+  }
+  chart.buildChartWhenReady();
 });
+
+function getStringOfOffsetDate(numDayOffset){
+  let dateToString=new Date();
+  dateToString.setDate(dateToString.getDate()+numDayOffset);
+  return dateToString;
+}
+
 
 function newsApi() {
   var q = "Apple";
@@ -90,4 +99,3 @@ function newsApi() {
 }
 //newsApi();
 
-//test api launch on production on github

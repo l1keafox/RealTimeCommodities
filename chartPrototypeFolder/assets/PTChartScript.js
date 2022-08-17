@@ -52,7 +52,7 @@ $('#fetch-button').on('click',function(event){
   let today = new Date();
   let todayString = today.getFullYear()+ '-' + today.getMonth() +'-'+today.getDate();
   console.log("Fetching "+commSelect ,"SYM : " + stringTooSymbol[commSelect] ," Currency: ",currency );
-  var chart=new CandleChartData(6,stringTooSymbol[commSelect],todayString,[]);
+  var chart=new CandleChartData(7,stringTooSymbol[commSelect],todayString,[]);
   for (var i=0;i<chart.bins;i++){
     getCommodityBySymbol(stringTooSymbol[commSelect],currency, getStringOfOffsetDate(-1*i),chart);
   }
@@ -88,12 +88,11 @@ class Candle{
     this.high=high;
     this.close=close;
   }
+  
   getArray(){
     return ([this.date,this.low,this.open,this.close,this.high]);
   }
 }
-
-
 //class to describe entire chart, should perhaps be integrated with Vian's api calls directly, or alternatively will be built out to take whatever data she fetches as a param.
 class CandleChartData{
   constructor(bins,symbol,startDate,candles){
@@ -107,11 +106,14 @@ class CandleChartData{
     this.candles.push(c);
     this.completedRequests+=1;
   }
+  //returns the candles objects
   returnCandles(){
     return this.candles;
   }
 
   //function that returns an array of the data contained in the candles, preformatted for google charts.
+  //UNSORTED BY DATE. MAY BE OUT OF ORDER DEPENDING ON API RESPONSE TIME Preferably refactor to actually create with date object, then sort using that and return formatted label.
+  //Would make it easier to display, say, the day of the week or whatever.
   getCandleArray(){
     var fullData=[];
     for (var i=0;i<this.candles.length;i++){
@@ -138,6 +140,5 @@ class CandleChartData{
     }
     return new Promise(poll);
   }
-
 }
 
