@@ -71,10 +71,6 @@ function getCommodityBySymbol(symbol, currency, date, forChart) {
       return request.json();
     })
     .then(function (request) {
-      console.log("high", request.rates.high);
-      console.log("close", request.rates.close);
-      console.log("low", request.rates.low);
-      console.log("open", request.rates.open);
       if(date.getFullYear() === todayDate.getFullYear() &&
         date.getMonth() === todayDate.getMonth() &&
         date.getDate() === todayDate.getDate()){
@@ -125,7 +121,7 @@ $("#fetch-button").on("click", function (event) {
     getCommodityBySymbol(
       stringTooSymbol[commSelect],
       currency,
-      getStringOfOffsetDate(-1 * i),
+      offsetDate(-1 * i),
       chart
     );
   }
@@ -134,7 +130,7 @@ $("#fetch-button").on("click", function (event) {
 
   
 });
-function getStringOfOffsetDate(numDayOffset) {
+function offsetDate(numDayOffset) {
   let dateToString = new Date();
   dateToString.setDate(dateToString.getDate() + numDayOffset);
   return dateToString;
