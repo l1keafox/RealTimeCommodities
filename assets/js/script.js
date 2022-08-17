@@ -23,13 +23,14 @@ function next(data) {
   return tempData;
 }
 //CANT HANDLE NULL INPUT
+
 function getCommodityBySymbol(symbol, currency, date ) {
   var access_key =
     //"ljdbuf72k16ob3i9jqscexucnfazsxi7l4deffx4d8w9ws8iyx7y0f2vp971"; // vian's key
       "5j9z3tm51x3q548swpzl0chbh4o5html88lm1htqpcbmdkwtgzl7f5boy4r2"; // raymond's key
   var base = "&base="+symbol;
   var symbols = "&symbols=" + currency;
-  fetch("https://commodities-api.com/api/open-high-low-close/" +
+  let dtz = fetch("https://commodities-api.com/api/open-high-low-close/" +
         date +
         "?access_key=" +
         access_key +
@@ -45,7 +46,8 @@ function getCommodityBySymbol(symbol, currency, date ) {
     console.log('open',request.rates.open);
     return request.rates;
     })
-
+    console.log('dtz:',dtz);
+    
 }
 
 let stringTooSymbol = {

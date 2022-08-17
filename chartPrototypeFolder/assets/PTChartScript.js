@@ -13,7 +13,7 @@ function getCommodityBySymbol(symbol, currency, date,forChart) {
       "5j9z3tm51x3q548swpzl0chbh4o5html88lm1htqpcbmdkwtgzl7f5boy4r2"; // raymond's key
   var base = "&base="+symbol;
   var symbols = "&symbols=" + currency;
-  fetch("https://commodities-api.com/api/open-high-low-close/" +
+  let dtt = fetch("https://commodities-api.com/api/open-high-low-close/" +
         date +
         "?access_key=" +
         access_key +
@@ -32,7 +32,8 @@ function getCommodityBySymbol(symbol, currency, date,forChart) {
     console.log('open',request.rates.open);
     return request.rates;
     })
-
+    console.log(dtt);
+    console.log(dtt.PromiseResult);
 }
 
 let stringTooSymbol = {
