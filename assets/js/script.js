@@ -22,6 +22,30 @@ function next(data) {
   return tempData;
 }
 
+
+function displayCurrentPrice(rates){
+  let baseEl = $('#currentPrice');
+
+  // If we are updating price
+  // we need to remove all the old elements shown.
+  let dtz = $('.priceCard');
+  dtz.remove();
+
+  for(let i in rates){
+    let priceEl = $('<div>');
+    let priceHeader = $('<h1>')
+    priceHeader.text(i)
+    let thePrice = $('<p>');
+    thePrice.text(rates[i]);
+    priceEl.attr('class', 'm-2 text-light bg-dark priceCard')
+    priceEl.append(priceHeader);
+    priceEl.append(thePrice);
+    baseEl.append(priceEl);
+  }
+}
+
+let currentPrice;
+
 //Modified to take date object as a param, formats in function
 function getCommodityBySymbol(symbol, currency, date, forChart) {
   //CANT HANDLE NULL INPUT
@@ -31,6 +55,8 @@ function getCommodityBySymbol(symbol, currency, date, forChart) {
     "5j9z3tm51x3q548swpzl0chbh4o5html88lm1htqpcbmdkwtgzl7f5boy4r2"; // raymond's key
   var base = "&base=" + symbol;
   var symbols = "&symbols=" + currency;
+  let todayDate = new Date(); // Variable holding today's date to see in request if it hits to update.
+
   let dateString =
     date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
   fetch(
@@ -49,6 +75,12 @@ function getCommodityBySymbol(symbol, currency, date, forChart) {
       console.log("close", request.rates.close);
       console.log("low", request.rates.low);
       console.log("open", request.rates.open);
+      if(date.getFullYear() === todayDate.getFullYear() &&
+        date.getMonth() === todayDate.getMonth() &&
+        date.getDate() === todayDate.getDate()){
+        displayCurrentPrice(request.rates)
+        // Sorry guys this is where the price gets updated.
+      }
       forChart.addCandle(
         new Candle(
           date,
@@ -99,6 +131,8 @@ $("#fetch-button").on("click", function (event) {
   }
   chart.buildChartWhenReady();
   // newsApi(commSelect, todayString);
+
+  
 });
 function offsetDate(numDayOffset) {
   let dateToString = new Date();
