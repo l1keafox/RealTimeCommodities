@@ -109,6 +109,7 @@ $("#fetch-button").on("click", function (event) {
 });
 
 function fetchInformation(commSelect){
+  $('#showCommHeader').text(commSelect);
   let currency = "USD";
   let today = new Date();
   let todayString =
@@ -138,6 +139,7 @@ function fetchInformation(commSelect){
 
   // Here will will add it to local storage for future button showing. 
   addCommTooLocalStorage(commSelect);
+  doFastButtons();
 }
 
 let fastBtn = $('#StoredButtons');

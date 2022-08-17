@@ -483,14 +483,21 @@ for(let index in autoFill){
     
 }
 
+function doFastButtons(){
+// here we shoud look for previous buttons to get rid of.
+let dtz = $('.fastBtn');
+dtz.remove();
+
 var lastGrade = JSON.parse(localStorage.getItem("BList!"));
-console.log(lastGrade);
 let fastBtnMenu = $('#StoredButtons');
 if(lastGrade){
     for(let i = 0; i < lastGrade.length; i++){
         let newBtn = $('<button>');
         newBtn.text(lastGrade[i]);
         newBtn.attr('data-comm',lastGrade[i]);
+        newBtn.attr('class','fastBtn');
         fastBtnMenu.append(newBtn);
     }
 }
+}
+doFastButtons();
