@@ -1,0 +1,45 @@
+*{
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+
+}
+
+.header {
+    text-align: center;
+    background-color: #1C3879;
+    color: #F9F5EB;
+    padding: 30px;
+}
+
+nav {
+    background-color: #607EAA;
+    padding: 20px;
+}
+
+.main-container {
+    padding-top: 40px;
+}
+
+#currentPrice {
+    /* top left, above chart, smaller */
+}
+
+#graph {
+    /* large, slightly to left, borders */
+}
+
+#news {
+    /* under chart */
+}
+
+#wikipedia {
+    /* to the right of chart */
+}
+
+.footer {
+    text-align: center;
+    background-color: #1C3879;
+    color: #F9F5EB;
+}
