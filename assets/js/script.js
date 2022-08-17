@@ -93,15 +93,15 @@ function getCommodityBySymbol(symbol, currency, date, forChart) {
       return request.rates;
     });
 }
-
+/*
 let stringTooSymbol = {
   gold: "GBP",
   oil: "BRENTOIL",
   crude: "BRENTOIL",
   silver: "XAG",
   wheat: "WHEAT",
-  corn: "CORN",
-};
+  corn: "CORN"
+};*/
 $("#fetch-button").on("click", function (event) {
   let dropDown = $("#dropDownTxt");
   let commSelect = $(dropDown[0]).text();
