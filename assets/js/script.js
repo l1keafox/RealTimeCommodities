@@ -23,7 +23,7 @@ function next(data) {
 }
 
 //Modified to take date object as a param, formats in function
-function getCommodityBySymbol(symbol, currency, date,forChart ) {
+function getCommodityBySymbol(symbol, currency, date, forChart) {
   //CANT HANDLE NULL INPUT
   // c2d7493df4aabdeb7d5738fcbde8f28250fc0b69
   var access_key =
@@ -31,24 +31,35 @@ function getCommodityBySymbol(symbol, currency, date,forChart ) {
     "5j9z3tm51x3q548swpzl0chbh4o5html88lm1htqpcbmdkwtgzl7f5boy4r2"; // raymond's key
   var base = "&base=" + symbol;
   var symbols = "&symbols=" + currency;
-  let dateString = date.getFullYear()+ '-' + date.getMonth() +'-'+date.getDate();
-  fetch("https://commodities-api.com/api/open-high-low-close/" +
-        dateString +
-        "?access_key=" +
-        access_key +
-        base +
-        symbols)
-  .then(function(request){
-    return request.json();
+  let dateString =
+    date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
+  fetch(
+    "https://commodities-api.com/api/open-high-low-close/" +
+      dateString +
+      "?access_key=" +
+      access_key +
+      base +
+      symbols
+  )
+    .then(function (request) {
+      return request.json();
     })
-  .then( function(request){
-    console.log('high', request.rates.high);
-    console.log('close',request.rates.close);
-    console.log('low',request.rates.low);
-    console.log('open',request.rates.open);
-    forChart.addCandle(new Candle(date,request.rates.open,request.rates.low,request.rates.high,request.rates.close));
-    return request.rates;
-    })
+    .then(function (request) {
+      console.log("high", request.rates.high);
+      console.log("close", request.rates.close);
+      console.log("low", request.rates.low);
+      console.log("open", request.rates.open);
+      forChart.addCandle(
+        new Candle(
+          date,
+          request.rates.open,
+          request.rates.low,
+          request.rates.high,
+          request.rates.close
+        )
+      );
+      return request.rates;
+    });
 }
 
 let stringTooSymbol = {
@@ -59,31 +70,42 @@ let stringTooSymbol = {
   wheat: "WHEAT",
   corn: "CORN",
 };
-
 $("#fetch-button").on("click", function (event) {
   let dropDown = $("#dropDownTxt");
   let commSelect = $(dropDown[0]).text();
   let currency = "USD";
   let today = new Date();
-  let todayString = today.getFullYear()+ '-' + today.getMonth() +'-'+today.getDate();
-  console.log("Fetching "+commSelect ,"SYM : " + stringTooSymbol[commSelect] ," Currency: ",currency );
-  var chart=new CandleChartData(7,stringTooSymbol[commSelect],todayString,[]);
-  for (var i=0;i<chart.bins;i++){
-    getCommodityBySymbol(stringTooSymbol[commSelect],currency,getStringOfOffsetDate(-1*i),chart);
+  let todayString =
+    today.getFullYear() + "-" + today.getMonth() + "-" + today.getDate();
+  console.log(
+    "Fetching " + commSelect,
+    "SYM : " + stringTooSymbol[commSelect],
+    " Currency: ",
+    currency
+  );
+  var chart = new CandleChartData(
+    7,
+    stringTooSymbol[commSelect],
+    todayString,
+    []
+  );
+  for (var i = 0; i < chart.bins; i++) {
+    getCommodityBySymbol(
+      stringTooSymbol[commSelect],
+      currency,
+      getStringOfOffsetDate(-1 * i),
+      chart
+    );
   }
   chart.buildChartWhenReady();
+  // newsApi(commSelect, todayString);
 });
-
-function getStringOfOffsetDate(numDayOffset){
-  let dateToString=new Date();
-  dateToString.setDate(dateToString.getDate()+numDayOffset);
+function getStringOfOffsetDate(numDayOffset) {
+  let dateToString = new Date();
+  dateToString.setDate(dateToString.getDate() + numDayOffset);
   return dateToString;
 }
-
-
-function newsApi() {
-  var q = "Apple";
-  var from = "2022-08-17";
+function newsApi(q, from) {
   var sortBy = "popularity";
   var apiKey = "84fd76baf80f4e8db2bfd017809af1fc";
   var requestUrl = `https://newsapi.org/v2/everything?q=${q}&from=${from}&sortBy=${sortBy}&apiKey=${apiKey}`;
@@ -97,5 +119,3 @@ function newsApi() {
       console.log(data.articles);
     });
 }
-//newsApi();
-
