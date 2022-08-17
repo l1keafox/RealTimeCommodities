@@ -6,6 +6,11 @@ body {
 
 }
 
+#com-dropdown{
+    max-height:250px;/* you can change as you need it */
+    overflow:auto;/* to get scroll */    
+}
+
 .header {
     text-align: center;
     background-color: #1C3879;

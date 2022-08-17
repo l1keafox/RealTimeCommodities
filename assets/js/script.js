@@ -89,18 +89,23 @@ function getCommodityBySymbol(symbol, currency, date, forChart) {
       return request.rates;
     });
 }
-
+/*
 let stringTooSymbol = {
   gold: "GBP",
   oil: "BRENTOIL",
   crude: "BRENTOIL",
   silver: "XAG",
   wheat: "WHEAT",
-  corn: "CORN",
-};
+  corn: "CORN"
+};*/
 $("#fetch-button").on("click", function (event) {
   let dropDown = $("#dropDownTxt");
-  let commSelect = $(dropDown[0]).text();
+  fetchInformation($(dropDown[0]).text())
+  
+});
+
+function fetchInformation(commSelect){
+  $('#showCommHeader').text(commSelect);
   let currency = "USD";
   let today = new Date();
   let todayString =
@@ -125,11 +130,36 @@ $("#fetch-button").on("click", function (event) {
       chart
     );
   }
-  chart.buildChartWhenReady();
+  chart.buildChartWhenReady(); 
   // newsApi(commSelect, todayString);
 
-  
+  // Here will will add it to local storage for future button showing. 
+  addCommTooLocalStorage(commSelect);
+  doFastButtons();
+}
+
+let fastBtn = $('#StoredButtons');
+fastBtn.on('click',function(event){
+  let dropDown = $(event.target);
+  fetchInformation(dropDown.attr('data-comm'));
+  console.log("fastbutton pressed",);
 });
+
+function addCommTooLocalStorage(comm){
+  if(comm === '\n              Select Commodity\n            ') return;
+  var lastGrade = JSON.parse(localStorage.getItem("BList!"));
+  if(lastGrade === null){
+    lastGrade = [];
+    console.log("CLEARS");
+  }
+  if(lastGrade.includes(comm)){
+//    console.log('Shoud Not add');
+  } else {
+    lastGrade.push(comm);
+  }
+  localStorage.setItem('BList!',JSON.stringify(lastGrade));
+}
+
 function offsetDate(numDayOffset) {
   let dateToString = new Date();
   dateToString.setDate(dateToString.getDate() + numDayOffset);
