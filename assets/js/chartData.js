@@ -47,7 +47,6 @@ class CandleChartData{
     getCandleArray(){
         var fullData=[];
         for (var i=0;i<this.candles.length;i++){
-        console.log(this.candles[i].getArray());
         fullData.push(this.candles[i].getArray());
         }
         return fullData;
