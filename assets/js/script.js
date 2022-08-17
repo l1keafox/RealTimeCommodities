@@ -1,38 +1,52 @@
 var data = document.querySelector("data");
 var fetchButton = document.getElementById("fetch-button");
 
-function getApi() {
-  // Insert the API url to get a list of your repos
-  var requestUrl =
-    "https://commodities-api.com/api/latest?access_key=ljdbuf72k16ob3i9jqscexucnfazsxi7l4deffx4d8w9ws8iyx7y0f2vp971";
+//original function to test API
+// function getApi() {
+//   // Insert the API url to get a list of your repos
+//   var requestUrl =
+//     "https://commodities-api.com/api/latest?access_key=ljdbuf72k16ob3i9jqscexucnfazsxi7l4deffx4d8w9ws8iyx7y0f2vp971";
 
-  fetch(requestUrl)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log(data);
-      console.log(data.data.base);
-    });
-}
-function next(data) {
-  console.log("i am in the next function");
-  var tempData = { ...data };
-  tempData.test = "this is my test";
-  return tempData;
-}
+//   fetch(requestUrl)
+//     .then(function (response) {
+//       return response.json();
+//     })
+//     .then(function (data) {
+//       console.log(data);
+//       console.log(data.data.base);
+//     });
+// }
 
-function getSpecificApi(endpoint, usa) {
-  // set endpoint and your access key
-  var endpoint = "2022-08-15"; //querySelector outside function
+var data = [];
+
+var onClickEvent = async (event) => {
+  data = [];
+  //var onClickEvent same as function OnclickEvent except can add async and await in body
+  var myDates = [
+    "2022-08-09",
+    "2022-08-10",
+    "2022-08-11",
+    "2022-08-12",
+    "2022-08-15",
+  ];
+  for (let i = 0; i < myDates.length; i++) {
+    const currentDate = myDates[i];
+    var res = await getSpecificApi(currentDate);
+    data.push(res);
+  }
+  console.log("this should be at end of async stack");
+};
+
+var getSpecificApi = async (endpoint) => {
   var access_key =
     "ljdbuf72k16ob3i9jqscexucnfazsxi7l4deffx4d8w9ws8iyx7y0f2vp971";
   var base = "&base=XAU";
-  var symbols = "&symbols=" + requestedSymbol;
-  var requestedSymbol = "USD"; //querySelector here outside
+  var symbols = "&symbols=USD";
+
+  //querySelector here outside
   //   ,GBP,BRENTOIL,XAG,WHEAT,CORN
-  // get the most recent exchange rates via the "latest" endpoint:
-  $.ajax({
+
+  var result = await $.ajax({
     url:
       "https://commodities-api.com/api/open-high-low-close/" +
       endpoint +
@@ -42,17 +56,9 @@ function getSpecificApi(endpoint, usa) {
       symbols,
 
     dataType: "json",
-    success: function (json) {
-      // exchange rata data is stored in json.rates
-      console.log(json);
-      //   alert(json.rates.GBP);
-
-      //   // base currency is stored in json.base
-      //   alert(json.base);
-
-      //   // timestamp can be accessed in json.timestamp
-      //   alert(json.timestamp);
-    },
   });
-}
-fetchButton.addEventListener("click", getSpecificApi);
+  console.log(result);
+  return result;
+};
+// fetchButton.addEventListener("click", getSpecificApi);
+fetchButton.addEventListener("click", onClickEvent);
