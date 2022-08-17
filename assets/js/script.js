@@ -1,4 +1,4 @@
-var data = document.querySelector("data");
+var dataEl = document.querySelector(".data");
 var fetchButton = document.getElementById("fetch-button");
 
 //original function to test API
@@ -16,7 +16,7 @@ var fetchButton = document.getElementById("fetch-button");
 //       console.log(data.data.base);
 //     });
 // }
-
+var result = [];
 var data = [];
 
 var onClickEvent = async (event) => {
@@ -33,8 +33,10 @@ var onClickEvent = async (event) => {
     const currentDate = myDates[i];
     var res = await getSpecificApi(currentDate);
     data.push(res);
+    result.push(res);
   }
   console.log("this should be at end of async stack");
+  resultDisplay();
 };
 
 var getSpecificApi = async (endpoint) => {
@@ -60,5 +62,25 @@ var getSpecificApi = async (endpoint) => {
   console.log(result);
   return result;
 };
+
+function resultDisplay() {
+  for (let i = 0; i < result.length; i++) {
+    const element = result[i];
+    console.log(element);
+
+    const ulEl = document.createElement("ul");
+    const liEl = document.createElement("li");
+
+    ulEl.textContent = result[i].rates;
+    // liEl.textContent = result[i].rates.open;
+    // liEl.textContent = result[i].rates.high;
+    // liEl.textContent = result[i].rates.low;
+    // liEl.textContent = result[i].rates.close;
+
+    dataEl.append(ulEl);
+    ulEl.append(liEl);
+  }
+}
+
 // fetchButton.addEventListener("click", getSpecificApi);
 fetchButton.addEventListener("click", onClickEvent);
