@@ -88,6 +88,6 @@ function newsApi() {
       console.log(data.articles);
     });
 }
-newsApi();
+//newsApi();
 
 //test api launch on production on github
