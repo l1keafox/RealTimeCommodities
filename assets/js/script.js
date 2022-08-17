@@ -71,11 +71,10 @@ $("#fetch-button").on("click", function (event) {
     currency
   );
   getCommodityBySymbol(stringTooSymbol[commSelect], currency, todayString);
+  // newsApi(commSelect, todayString);
 });
 
-function newsApi() {
-  var q = "Apple";
-  var from = "2022-08-17";
+function newsApi(q, from) {
   var sortBy = "popularity";
   var apiKey = "84fd76baf80f4e8db2bfd017809af1fc";
   var requestUrl = `https://newsapi.org/v2/everything?q=${q}&from=${from}&sortBy=${sortBy}&apiKey=${apiKey}`;
@@ -89,6 +88,5 @@ function newsApi() {
       console.log(data.articles);
     });
 }
-newsApi();
 
 //test api launch on production on github
