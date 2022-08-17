@@ -25,6 +25,12 @@ function next(data) {
 
 function displayCurrentPrice(rates){
   let baseEl = $('#currentPrice');
+
+  // If we are updating price
+  // we need to remove all the old elements shown.
+  let dtz = $('.priceCard');
+  dtz.remove();
+
   for(let i in rates){
     let priceEl = $('<div>');
     let priceHeader = $('<h1>')
