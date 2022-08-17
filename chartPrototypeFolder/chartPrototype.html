@@ -1,14 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+      crossorigin="anonymous"
+      />
+    <title>Commodities</title>
+  </head>
+
+  <body>
+    <footer class = "container text-center text-light bg-dark">
+        <h1>Real Time Commodities</h1>
+    </footer>
+    <section class="news container d-flex">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="dropDownTxt">
+              Select Commodity
+             
+            </button>
+            <ul class="dropdown-menu" id="com-dropdown">
+              <li><a class="dropdown-item" id="gold" href="#">Gold</a></li>
+              <li><a class="dropdown-item" id="silver" href="#">Silver</a></li>
+              <li><a class="dropdown-item" id="crude" href="#">Crude</a></li>
+              <li><a class="dropdown-item" id="wheat" href="#">Wheat</a></li>
+              <li><a class="dropdown-item" id="corn" href="#">Corn</a></li>
+            </ul>
+          </div>
+          <input></input>
+          <button type="button" class="btn btn-primary" id="fetch-button">Fetch commodities</button>
+    </section>
+    <section id="currentPrice">
+
+    </section>
+    <section id="graph">
+        <div id="chart_div" style="width: 900px; height: 500px;"></div>
+    </section>
+    <section id="news">
+
+    </section>
+    <section id="wikipedia">
+
+    </section>
+    <footer class = "container text-center text-light bg-dark">
+      This is created by Raymond Lewis, James Young, Sophie LeBron, Vian
+      Charbonneau
+    </footer>
+    <!-- JavaScript Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../assets/js/buttonScript.js"></script>
     <script src="./assets/PTChartScript.js"></script>
-    <title>Chart Prototype</title>
-</head>
-<body>
-    <div id="chart_div"></div>
-</body>
+  </body>
 </html>
