@@ -4,6 +4,7 @@ google.charts.load('current', {'packages':['corechart']});
 //class to hold a single candle's worth of data from an api call
 class Candle{
     constructor(date,open,low,high,close){
+      //DATE OBJECT
       this.date=date;
       this.open=open;
       this.low=low;
@@ -25,8 +26,17 @@ class CandleChartData{
         this.completedRequests=0;
     }
     addCandle(c){
-        this.candles.push(c);
-        this.completedRequests+=1;
+      this.candles.push(c);
+      this.candles.sort(function(a,b){
+        if(a.date<b.date){
+          return -1;
+        }
+        if(a.date>b.date){
+          return 1;
+        }
+        return 0;
+      });
+      this.completedRequests+=1;
     }
     //returns the candles objects
     returnCandles(){
@@ -47,11 +57,7 @@ class CandleChartData{
 
     //Async function that awaits data for all specified bins before drawing chart.
     async buildChartWhenReady(){
-        console.log("waiting on "+this.bins+" total");
-        console.log(this.completedRequests+" requests completed so far.")
         await this.until(_ => this.bins==this.completedRequests);
-        console.log("done.");
-        console.log(this);
         drawChart(this);
     }
     //utility function from the internet, awaits a conditional function
