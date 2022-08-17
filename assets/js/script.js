@@ -93,14 +93,14 @@ $("#fetch-button").on("click", function (event) {
     getCommodityBySymbol(
       stringTooSymbol[commSelect],
       currency,
-      getStringOfOffsetDate(-1 * i),
+      offsetDate(-1 * i),
       chart
     );
   }
   chart.buildChartWhenReady();
   // newsApi(commSelect, todayString);
 });
-function getStringOfOffsetDate(numDayOffset) {
+function offsetDate(numDayOffset) {
   let dateToString = new Date();
   dateToString.setDate(dateToString.getDate() + numDayOffset);
   return dateToString;
