@@ -462,6 +462,7 @@ $('#com-dropdown').on('click', function(event){
     let dropDown = $('#dropDownTxt');
     // the text of dropDown is changed to notify user of the state.
     dropDown.text(buttonPsd.attr('id'));
+
 });
 let listEl = $('#com-dropdown');
 for(let index in autoFill){
@@ -473,7 +474,6 @@ for(let index in autoFill){
               //<ul class="dropdown-menu" id="com-dropdown">
     let newDropEl = $('<li>');
     let dropAEl = $('<a>');
-    console.log(dropAEl);
     dropAEl.attr('class','dropdown-item');
     dropAEl.attr('id',autoFill[index]);
     dropAEl.attr('href','#');
@@ -483,5 +483,14 @@ for(let index in autoFill){
     
 }
 
-
-// display stored button.
+var lastGrade = JSON.parse(localStorage.getItem("BList!"));
+console.log(lastGrade);
+let fastBtnMenu = $('#StoredButtons');
+if(lastGrade){
+    for(let i = 0; i < lastGrade.length; i++){
+        let newBtn = $('<button>');
+        newBtn.text(lastGrade[i]);
+        newBtn.attr('data-comm',lastGrade[i]);
+        fastBtnMenu.append(newBtn);
+    }
+}
