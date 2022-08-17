@@ -22,7 +22,7 @@ function next(data) {
   tempData.test = "this is my test";
   return tempData;
 }
-
+//CANT HANDLE NULL INPUT
 function getCommodityBySymbol(symbol, currency, date ) {
   var access_key =
     //"ljdbuf72k16ob3i9jqscexucnfazsxi7l4deffx4d8w9ws8iyx7y0f2vp971"; // vian's key
