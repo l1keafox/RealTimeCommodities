@@ -88,7 +88,7 @@ class Candle{
     this.close=close;
   }
   getArray(){
-    return ([this.date,this.open,this.low,this.high,this.close]);
+    return ([this.date,this.low,this.open,this.close,this.high]);
   }
 }
 
