@@ -36,7 +36,7 @@ function displayCurrentPrice(rates){
     let priceHeader = $('<h1>')
     priceHeader.text(i)
     let thePrice = $('<p>');
-    thePrice.text(rates[i]);
+    thePrice.text(rates[i].toFixed(3));
     priceEl.attr('class', 'm-2 text-light bg-dark priceCard')
     priceEl.append(priceHeader);
     priceEl.append(thePrice);
@@ -49,10 +49,12 @@ let currentPrice;
 //Modified to take date object as a param, formats in function
 function getCommodityBySymbol(symbol, currency, date, forChart) {
   //CANT HANDLE NULL INPUT
-  // c2d7493df4aabdeb7d5738fcbde8f28250fc0b69
   var access_key =
     //"ljdbuf72k16ob3i9jqscexucnfazsxi7l4deffx4d8w9ws8iyx7y0f2vp971"; // vian's key
     "5j9z3tm51x3q548swpzl0chbh4o5html88lm1htqpcbmdkwtgzl7f5boy4r2"; // raymond's key
+  if(!symbol){
+    return;
+  }
   var base = "&base=" + symbol;
   var symbols = "&symbols=" + currency;
   let todayDate = new Date(); // Variable holding today's date to see in request if it hits to update.
