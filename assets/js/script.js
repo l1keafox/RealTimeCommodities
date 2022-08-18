@@ -23,6 +23,7 @@ function next(data) {
 }
 
 
+// This will look at the rates of and display them in boxes.
 function displayCurrentPrice(rates){
   let baseEl = $('#currentPrice');
 
@@ -47,6 +48,7 @@ function displayCurrentPrice(rates){
 let currentPrice;
 
 //Modified to take date object as a param, formats in function
+// This get a commodity based: SYM,   USD,  YYYY-MM-DD, forChart
 function getCommodityBySymbol(symbol, currency, date, forChart) {
   //CANT HANDLE NULL INPUT
   // c2d7493df4aabdeb7d5738fcbde8f28250fc0b69
@@ -71,11 +73,11 @@ function getCommodityBySymbol(symbol, currency, date, forChart) {
       return request.json();
     })
     .then(function (request) {
+      // Here we looking at current date vs date pulled.
       if(date.getFullYear() === todayDate.getFullYear() &&
         date.getMonth() === todayDate.getMonth() &&
         date.getDate() === todayDate.getDate()){
-        displayCurrentPrice(request.rates)
-        // Sorry guys this is where the price gets updated.
+        displayCurrentPrice(request.rates);
       }
       forChart.addCandle(
         new Candle(
@@ -89,21 +91,20 @@ function getCommodityBySymbol(symbol, currency, date, forChart) {
       return request.rates;
     });
 }
-/*
-let stringTooSymbol = {
-  gold: "GBP",
-  oil: "BRENTOIL",
-  crude: "BRENTOIL",
-  silver: "XAG",
-  wheat: "WHEAT",
-  corn: "CORN"
-};*/
+
+
+// When the fetch button is clicked, it will look at dropdown Text and start the search.
 $("#fetch-button").on("click", function (event) {
   let dropDown = $("#dropDownTxt");
+  // Here we might want to start loading icon.
+
+
   fetchInformation($(dropDown[0]).text())
-  
 });
 
+
+// This is after a button press, either one of the fast buttons or fetch-buttons
+// This will start the api calls and buildng charts when ready.
 function fetchInformation(commSelect){
   $('#showCommHeader').text(commSelect);
   let currency = "USD";
@@ -138,13 +139,17 @@ function fetchInformation(commSelect){
   doFastButtons();
 }
 
+
+// This is to add event listener to the fast buttons to fetchInfo.
 let fastBtn = $('#StoredButtons');
 fastBtn.on('click',function(event){
   let dropDown = $(event.target);
   fetchInformation(dropDown.attr('data-comm'));
-  console.log("fastbutton pressed",);
+  console.log("fastbutton pressed");
 });
 
+
+// This function is created to saved to local storage.
 function addCommTooLocalStorage(comm){
   if(comm === '\n              Select Commodity\n            ') return;
   var lastGrade = JSON.parse(localStorage.getItem("BList!"));

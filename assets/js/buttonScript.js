@@ -228,7 +228,7 @@ let stringTooSymbol = {
 'Zimbabwean Dollar':	'ZWL',
 'Zinc':	'ZNC',
 };
-let autoFill = ['Afghan Afghani',
+let acceptable = ['Afghan Afghani',
 'Albanian Lek',
 'Algerian Dinar',
 'Aluminum',
@@ -457,6 +457,8 @@ let autoFill = ['Afghan Afghani',
 'Zinc',
 ];
 
+
+// This will use the drop down and update the text of the button
 $('#com-dropdown').on('click', function(event){
     let buttonPsd = $(event.target);
     let dropDown = $('#dropDownTxt');
@@ -464,8 +466,11 @@ $('#com-dropdown').on('click', function(event){
     dropDown.text(buttonPsd.attr('id'));
 
 });
+
+
+// This adds too the dropDown menu.
 let listEl = $('#com-dropdown');
-for(let index in autoFill){
+for(let index in acceptable){
     /*
               <li>
                 <a class="dropdown-item" id="gold" href="#">Gold</a>
@@ -475,13 +480,15 @@ for(let index in autoFill){
     let newDropEl = $('<li>');
     let dropAEl = $('<a>');
     dropAEl.attr('class','dropdown-item');
-    dropAEl.attr('id',autoFill[index]);
+    dropAEl.attr('id',acceptable[index]);
     dropAEl.attr('href','#');
-    dropAEl.text( autoFill[index]);
+    dropAEl.text( acceptable[index]);
     newDropEl.append(dropAEl);
     listEl.append(newDropEl);
     
 }
+
+// Fast buttons are stored in local storage of previous searched for items.
 
 function doFastButtons(){
 // here we shoud look for previous buttons to get rid of.
@@ -500,4 +507,5 @@ if(lastGrade){
     }
 }
 }
+
 doFastButtons();
