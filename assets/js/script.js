@@ -117,7 +117,7 @@ function fetchInformation(commSelect) {
     currency
   );
   var chart = new CandleChartData(
-    7,
+    2,
     stringTooSymbol[commSelect],
     todayString,
     []
@@ -131,7 +131,7 @@ function fetchInformation(commSelect) {
     );
   }
   chart.buildChartWhenReady();
-  // newsApi(commSelect, todayString);
+  newsApi2(commSelect, todayString);
 
   // Here will will add it to local storage for future button showing.
   addCommTooLocalStorage(commSelect);
@@ -177,5 +177,57 @@ function newsApi(q, from) {
     .then(function (data) {
       console.log(data);
       console.log(data.articles);
+    });
+}
+
+function newsApi2(q, from) {
+  var requestUrl =
+    "https://newsdata.io/api/1/news?apikey=pub_10359c215f1fbd7f82f4a4f4b9c12d34b5bda&q=" +
+    q +
+    "&language=en";
+  fetch(requestUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data.results);
+      let array = data.results;
+      var news = $("#news");
+      for (let index = 0; index < 3; index++) {
+        const element = array[index];
+
+        // console.log(element.title);
+        // console.log(news);
+        var newsEl = $("<div>");
+        newsEl.attr("class", "card");
+        var imageEl = $("<img>");
+        imageEl.attr("class", "card-img-top");
+        newsEl.append(imageEl);
+        var titleEl = $("<h5>");
+        titleEl.attr("class", "card-title");
+        titleEl.text(element.title);
+        newsEl.append(titleEl);
+        // console.log(newsEl);
+        news.append(newsEl);
+      }
+
+      /* <div class="card" style="width: 18rem;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div> */
+
+      // description;
+      // link;
+      // pubDate;
+      // image_url;
+      // video_url;
+      // title;
+    })
+    .catch(function (data) {
+      console.log("Fail,", data);
     });
 }
