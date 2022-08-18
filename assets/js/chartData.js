@@ -11,7 +11,6 @@ class Candle{
       this.high=high;
       this.close=close;
     }
-    
     getArray(){
       return ([this.date.toDateString(),this.low,this.open,this.close,this.high]);
     }
@@ -42,7 +41,6 @@ class CandleChartData{
     returnCandles(){
         return this.candles;
     }
-
     //function that returns an array of the data contained in the candles, preformatted for google charts.
     getCandleArray(){
         var fullData=[];
@@ -51,7 +49,6 @@ class CandleChartData{
         }
         return fullData;
     }
-
     //Async function that awaits data for all specified bins before drawing chart.
     async buildChartWhenReady(){
         await this.until(_ => this.bins==this.completedRequests);
@@ -72,11 +69,9 @@ class CandleChartData{
 function drawChart(chartData) {
 
     var data = google.visualization.arrayToDataTable(chartData.getCandleArray(), true);
-  
     var options = {
       legend:'none'
     };
-  
     var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
   
     chart.draw(data, options);
