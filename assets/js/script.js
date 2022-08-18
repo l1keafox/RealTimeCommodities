@@ -180,6 +180,15 @@ function newsApi2(q, from) {
         newsEl.attr("class", "card");
         var imageEl = $("<img>");
         imageEl.attr("class", "card-img-top");
+        if (element.image_url == null) {
+          imageEl.attr(
+            "src",
+            "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/in/wp-content/uploads/2022/03/pexels-pixabay-315788-scaled.jpg"
+          );
+        } else {
+          imageEl.attr("src", element.image_url);
+        }
+        newsEl.attr("style", "width: 18rem");
         newsEl.append(imageEl);
         var titleEl = $("<h5>");
         titleEl.attr("class", "card-title");
