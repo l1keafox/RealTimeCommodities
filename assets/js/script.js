@@ -130,7 +130,7 @@ function fetchInformation(commSelect){
       chart
     );
   }
-  chart.buildChartWhenReady(); 
+  chart.buildChartWhenReady();
   // newsApi(commSelect, todayString);
 
   // Here will will add it to local storage for future button showing. 
@@ -159,7 +159,7 @@ function addCommTooLocalStorage(comm){
   }
   localStorage.setItem('BList!',JSON.stringify(lastGrade));
 }
-
+  
 function offsetDate(numDayOffset) {
   let dateToString = new Date();
   dateToString.setDate(dateToString.getDate() + numDayOffset);
@@ -181,4 +181,5 @@ function newsApi(q, from) {
 }
 
 const theButton = document.querySelector(".button");
+
 
