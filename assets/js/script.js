@@ -149,3 +149,6 @@ function newsApi(q, from) {
       console.log(data.articles);
     });
 }
+
+const theButton = document.querySelector(".button");
+
