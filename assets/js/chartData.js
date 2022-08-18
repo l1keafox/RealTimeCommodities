@@ -44,12 +44,9 @@ class CandleChartData{
     }
 
     //function that returns an array of the data contained in the candles, preformatted for google charts.
-    //UNSORTED BY DATE. MAY BE OUT OF ORDER DEPENDING ON API RESPONSE TIME Preferably refactor to actually create with date object, then sort using that and return formatted label.
-    //Would make it easier to display, say, the day of the week or whatever.
     getCandleArray(){
         var fullData=[];
         for (var i=0;i<this.candles.length;i++){
-        console.log(this.candles[i].getArray());
         fullData.push(this.candles[i].getArray());
         }
         return fullData;
