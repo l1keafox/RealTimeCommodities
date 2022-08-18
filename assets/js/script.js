@@ -1,19 +1,19 @@
 // This will look at the rates of and display them in boxes.
-function displayCurrentPrice(rates){
-  let baseEl = $('#currentPrice');
+function displayCurrentPrice(rates) {
+  let baseEl = $("#currentPrice");
 
   // If we are updating price
   // we need to remove all the old elements shown.
-  let dtz = $('.priceCard');
+  let dtz = $(".priceCard");
   dtz.remove();
 
-  for(let i in rates){
-    let priceEl = $('<div>');
-    let priceHeader = $('<h1>')
-    priceHeader.text(i)
-    let thePrice = $('<p>');
+  for (let i in rates) {
+    let priceEl = $("<div>");
+    let priceHeader = $("<h1>");
+    priceHeader.text(i);
+    let thePrice = $("<p>");
     thePrice.text(rates[i].toFixed(3));
-    priceEl.attr('class', 'm-2 text-light bg-dark priceCard')
+    priceEl.attr("class", "m-2 text-light bg-dark priceCard");
     priceEl.append(priceHeader);
     priceEl.append(thePrice);
     baseEl.append(priceEl);
@@ -27,7 +27,7 @@ function getCommodityBySymbol(symbol, currency, date, forChart) {
   var access_key =
     //"ljdbuf72k16ob3i9jqscexucnfazsxi7l4deffx4d8w9ws8iyx7y0f2vp971"; // vian's key
     "5j9z3tm51x3q548swpzl0chbh4o5html88lm1htqpcbmdkwtgzl7f5boy4r2"; // raymond's key
-  if(!symbol){
+  if (!symbol) {
     return;
   }
   var base = "&base=" + symbol;
@@ -49,9 +49,11 @@ function getCommodityBySymbol(symbol, currency, date, forChart) {
     })
     .then(function (request) {
       // Here we looking at current date vs date pulled.
-      if(date.getFullYear() === todayDate.getFullYear() &&
+      if (
+        date.getFullYear() === todayDate.getFullYear() &&
         date.getMonth() === todayDate.getMonth() &&
-        date.getDate() === todayDate.getDate()){
+        date.getDate() === todayDate.getDate()
+      ) {
         displayCurrentPrice(request.rates);
       }
       forChart.addCandle(
@@ -67,28 +69,26 @@ function getCommodityBySymbol(symbol, currency, date, forChart) {
     });
 }
 
-
 // When the fetch button is clicked, it will look at dropdown Text and start the search.
 $("#fetch-button").on("click", function (event) {
   let dropDown = $("#dropDownTxt");
   // Here we might want to start loading icon.
 
-
-  fetchInformation($(dropDown[0]).text())
+  fetchInformation($(dropDown[0]).text());
 });
 
 // This is to add event listener to the fast buttons to fetchInfo.
-let fastBtn = $('#StoredButtons');
-fastBtn.on('click',function(event){
+let fastBtn = $("#StoredButtons");
+fastBtn.on("click", function (event) {
   let dropDown = $(event.target);
-  fetchInformation(dropDown.attr('data-comm'));
+  fetchInformation(dropDown.attr("data-comm"));
   console.log("fastbutton pressed");
 });
 
 // This is after a button press, either one of the fast buttons or fetch-buttons
 // This will start the api calls and buildng charts when ready.
-function fetchInformation(commSelect){
-  $('#showCommHeader').text(commSelect);
+function fetchInformation(commSelect) {
+  $("#showCommHeader").text(commSelect);
   let currency = "USD";
   let today = new Date();
   let todayString =
@@ -100,7 +100,7 @@ function fetchInformation(commSelect){
     currency
   );
   var chart = new CandleChartData(
-    7,
+    2,
     stringTooSymbol[commSelect],
     todayString,
     []
@@ -113,31 +113,29 @@ function fetchInformation(commSelect){
       chart
     );
   }
-  chart.buildChartWhenReady(); 
-  // newsApi(commSelect, todayString);
+  chart.buildChartWhenReady();
+  newsApi2(commSelect, todayString);
 
-  // Here will will add it to local storage for future button showing. 
+  // Here will will add it to local storage for future button showing.
   addCommTooLocalStorage(commSelect);
   doFastButtons();
 }
 
-
-
-
 // This function is created to saved to local storage.
-function addCommTooLocalStorage(comm){
-  if(comm === '\n              Select Commodity\n            ' || comm == null) return;
+function addCommTooLocalStorage(comm) {
+  if (comm === "\n              Select Commodity\n            " || comm == null)
+    return;
   var lastGrade = JSON.parse(localStorage.getItem("BList!"));
-  if(lastGrade === null){
+  if (lastGrade === null) {
     lastGrade = [];
     console.log("New local Storage Created");
   }
-  if(lastGrade.includes(comm)){
-//    console.log('Shoud Not add');
+  if (lastGrade.includes(comm)) {
+    //    console.log('Shoud Not add');
   } else {
     lastGrade.push(comm);
   }
-  localStorage.setItem('BList!',JSON.stringify(lastGrade));
+  localStorage.setItem("BList!", JSON.stringify(lastGrade));
 }
 
 function offsetDate(numDayOffset) {
@@ -157,5 +155,66 @@ function newsApi(q, from) {
     .then(function (data) {
       console.log(data);
       console.log(data.articles);
+    });
+}
+
+function newsApi2(q, from) {
+  var requestUrl =
+    "https://newsdata.io/api/1/news?apikey=pub_10359c215f1fbd7f82f4a4f4b9c12d34b5bda&q=" +
+    q +
+    "&language=en";
+  fetch(requestUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data.results);
+      let array = data.results;
+      var news = $("#news");
+      for (let index = 0; index < 3; index++) {
+        const element = array[index];
+
+        // console.log(element.title);
+        // console.log(news);
+        var newsEl = $("<div>");
+        newsEl.attr("class", "card");
+        var imageEl = $("<img>");
+        imageEl.attr("class", "card-img-top");
+        if (element.image_url == null) {
+          imageEl.attr(
+            "src",
+            "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/in/wp-content/uploads/2022/03/pexels-pixabay-315788-scaled.jpg"
+          );
+        } else {
+          imageEl.attr("src", element.image_url);
+        }
+        newsEl.attr("style", "width: 18rem");
+        newsEl.append(imageEl);
+        var titleEl = $("<h5>");
+        titleEl.attr("class", "card-title");
+        titleEl.text(element.title);
+        newsEl.append(titleEl);
+        // console.log(newsEl);
+        news.append(newsEl);
+      }
+
+      /* <div class="card" style="width: 18rem;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div> */
+
+      // description;
+      // link;
+      // pubDate;
+      // image_url;
+      // video_url;
+      // title;
+    })
+    .catch(function (data) {
+      console.log("Fail,", data);
     });
 }
