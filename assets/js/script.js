@@ -2,10 +2,6 @@
 function displayCurrentPrice(rates) {
   let baseEl = $("#currentPrice");
 
-  // If we are updating price
-  // we need to remove all the old elements shown.
-  let dtz = $(".priceCard");
-  dtz.remove();
 
   for (let i in rates) {
     let priceEl = $("<div>");
@@ -18,6 +14,14 @@ function displayCurrentPrice(rates) {
     priceEl.append(thePrice);
     baseEl.append(priceEl);
   }
+}
+
+// Call this function when you either:
+// A. press a button to show new elements
+// B. When quick button is pressed.
+function removeOldElements(){
+  $(".priceCard").remove();// OPEN/close/high/low numbers
+  $(".card").remove(); // Removes news articles.
 }
 
 //Modified to take date object as a param, formats in function
@@ -74,7 +78,7 @@ function getCommodityBySymbol(symbol, currency, date, forChart) {
 $("#fetch-button").on("click", function (event) {
   let dropDown = $("#dropDownTxt");
   // Here we might want to start loading icon.
-
+  removeOldElements(); // This removes elements from a previous button click
   fetchInformation($(dropDown[0]).text());
 });
 
@@ -82,6 +86,7 @@ $("#fetch-button").on("click", function (event) {
 let fastBtn = $("#StoredButtons");
 fastBtn.on("click", function (event) {
   let dropDown = $(event.target);
+  removeOldElements(); // This removes elements from a previous button click
   fetchInformation(dropDown.attr("data-comm"));
   console.log("fastbutton pressed");
 });
@@ -128,7 +133,7 @@ function fetchInformation(commSelect) {
 
 // This function is created to saved to local storage.
 function addCommTooLocalStorage(comm) {
-  if (comm === "\n              Select Commodity\n            " || comm == null)
+  if (comm === "\n              Select Commodity\n            " || comm == null || comm == undefined)
     return;
   var lastGrade = JSON.parse(localStorage.getItem("BList!"));
   if (lastGrade === null) {
@@ -180,32 +185,46 @@ function newsApi2(q, from) {
     .then(function (data) {
       console.log(data.results);
       let array = data.results;
-      var news = $("#news");
+      var article = $("#news");
       for (let index = 0; index < 3; index++) {
-        const element = array[index];
+        const newsData = array[index];
 
-        // console.log(element.title);
+        // console.log(newsData.title);
         // console.log(news);
-        var newsEl = $("<div>");
+        var newsEl = $("<div class=wrap>");
         newsEl.attr("class", "card");
         var imageEl = $("<img>");
         imageEl.attr("class", "card-img-top");
-        if (element.image_url == null) {
+        // if no image is found, fill it with Bitcoin Pic
+        if (newsData.image_url == null) {
           imageEl.attr(
             "src",
             "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/in/wp-content/uploads/2022/03/pexels-pixabay-315788-scaled.jpg"
           );
         } else {
-          imageEl.attr("src", element.image_url);
+          // if image_url exist, then we're giving the newsData a source
+          imageEl.attr("src", newsData.image_url);
         }
         newsEl.attr("style", "width: 18rem");
         newsEl.append(imageEl);
         var titleEl = $("<h5>");
         titleEl.attr("class", "card-title");
-        titleEl.text(element.title);
+        titleEl.text(newsData.title);
         newsEl.append(titleEl);
+
+        var textEL = $("<p>");
+        textEL.attr("class", "card-text");
+        textEL.text(newsData.description);
+        newsEl.append(textEL);
+
+        var buttonEl = $("<a>");
+        buttonEl.attr("class", "btn btn-primary");
+        buttonEl.attr("href", newsData.link);
+        buttonEl.text("Link");
+        newsEl.append(buttonEl);
+
         // console.log(newsEl);
-        news.append(newsEl);
+        article.append(newsEl);
       }
 
       /* <div class="card" style="width: 18rem;">
