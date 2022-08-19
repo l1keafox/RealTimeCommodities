@@ -1,50 +1,49 @@
-*{
-    font-family: 'Roboto', sans-serif;
+* {
+  font-family: "Roboto", sans-serif;
 }
 
 body {
-
 }
 
-#com-dropdown{
-    max-height:250px;/* you can change as you need it */
-    overflow:auto;/* to get scroll */    
+#com-dropdown {
+  max-height: 250px; /* you can change as you need it */
+  overflow: auto; /* to get scroll */
 }
 
 .header {
-    text-align: center;
-    background-color: #1C3879;
-    color: #F9F5EB;
-    padding: 30px;
+  text-align: center;
+  background-color: #1c3879;
+  color: #f9f5eb;
+  padding: 30px;
 }
 
 nav {
-    background-color: #607EAA;
-    padding: 20px;
+  background-color: #607eaa;
+  padding: 20px;
 }
 
 .main-container {
-    padding-top: 40px;
+  padding-top: 40px;
 }
 
 #currentPrice {
-    /* top left, above chart, smaller */
+  /* top left, above chart, smaller */
 }
 
 #graph {
-    /* large, slightly to left, borders */
+  /* large, slightly to left, borders */
 }
 
 #news {
-    /* under chart */
+  /* under chart */
 }
 
 #wikipedia {
-    /* to the right of chart */
+  /* to the right of chart */
 }
 
 .footer {
-    text-align: center;
-    background-color: #1C3879;
-    color: #F9F5EB;
+  text-align: center;
+  background-color: #1c3879;
+  color: #f9f5eb;
 }
