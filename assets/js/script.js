@@ -2,10 +2,6 @@
 function displayCurrentPrice(rates) {
   let baseEl = $("#currentPrice");
 
-  // If we are updating price
-  // we need to remove all the old elements shown.
-  let dtz = $(".priceCard");
-  dtz.remove();
 
   for (let i in rates) {
     let priceEl = $("<div>");
@@ -18,6 +14,14 @@ function displayCurrentPrice(rates) {
     priceEl.append(thePrice);
     baseEl.append(priceEl);
   }
+}
+
+// Call this function when you either:
+// A. press a button to show new elements
+// B. When quick button is pressed.
+function removeOldElements(){
+  $(".priceCard").remove();// OPEN/close/high/low numbers
+  $(".card").remove(); // Removes news articles.
 }
 
 //Modified to take date object as a param, formats in function
@@ -74,7 +78,7 @@ function getCommodityBySymbol(symbol, currency, date, forChart) {
 $("#fetch-button").on("click", function (event) {
   let dropDown = $("#dropDownTxt");
   // Here we might want to start loading icon.
-
+  removeOldElements(); // This removes elements from a previous button click
   fetchInformation($(dropDown[0]).text());
 });
 
@@ -82,6 +86,7 @@ $("#fetch-button").on("click", function (event) {
 let fastBtn = $("#StoredButtons");
 fastBtn.on("click", function (event) {
   let dropDown = $(event.target);
+  removeOldElements(); // This removes elements from a previous button click
   fetchInformation(dropDown.attr("data-comm"));
   console.log("fastbutton pressed");
 });
@@ -124,7 +129,7 @@ function fetchInformation(commSelect) {
 
 // This function is created to saved to local storage.
 function addCommTooLocalStorage(comm) {
-  if (comm === "\n              Select Commodity\n            " || comm == null)
+  if (comm === "\n              Select Commodity\n            " || comm == null || comm == undefined)
     return;
   var lastGrade = JSON.parse(localStorage.getItem("BList!"));
   if (lastGrade === null) {

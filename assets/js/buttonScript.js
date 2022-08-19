@@ -502,7 +502,7 @@ if(lastGrade){
         let newBtn = $('<button>');
         newBtn.text(lastGrade[i]);
         newBtn.attr('data-comm',lastGrade[i]);
-        newBtn.attr('class','fastBtn');
+        newBtn.attr('class','fastBtn m-1 p-1');
         fastBtnMenu.append(newBtn);
     }
 }
