@@ -170,32 +170,46 @@ function newsApi2(q, from) {
     .then(function (data) {
       console.log(data.results);
       let array = data.results;
-      var news = $("#news");
+      var article = $("#news");
       for (let index = 0; index < 3; index++) {
-        const element = array[index];
+        const newsData = array[index];
 
-        // console.log(element.title);
+        // console.log(newsData.title);
         // console.log(news);
-        var newsEl = $("<div>");
+        var newsEl = $("<div class=wrap>");
         newsEl.attr("class", "card");
         var imageEl = $("<img>");
         imageEl.attr("class", "card-img-top");
-        if (element.image_url == null) {
+        // if no image is found, fill it with Bitcoin Pic
+        if (newsData.image_url == null) {
           imageEl.attr(
             "src",
             "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/in/wp-content/uploads/2022/03/pexels-pixabay-315788-scaled.jpg"
           );
         } else {
-          imageEl.attr("src", element.image_url);
+          // if image_url exist, then we're giving the newsData a source
+          imageEl.attr("src", newsData.image_url);
         }
         newsEl.attr("style", "width: 18rem");
         newsEl.append(imageEl);
         var titleEl = $("<h5>");
         titleEl.attr("class", "card-title");
-        titleEl.text(element.title);
+        titleEl.text(newsData.title);
         newsEl.append(titleEl);
+
+        var textEL = $("<p>");
+        textEL.attr("class", "card-text");
+        textEL.text(newsData.description);
+        newsEl.append(textEL);
+
+        var buttonEl = $("<a>");
+        buttonEl.attr("class", "btn btn-primary");
+        buttonEl.attr("href", newsData.link);
+        buttonEl.text("Link");
+        newsEl.append(buttonEl);
+
         // console.log(newsEl);
-        news.append(newsEl);
+        article.append(newsEl);
       }
 
       /* <div class="card" style="width: 18rem;">
