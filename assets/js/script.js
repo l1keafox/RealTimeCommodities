@@ -94,7 +94,7 @@ fastBtn.on("click", function (event) {
 // This is after a button press, either one of the fast buttons or fetch-buttons
 // This will start the api calls and buildng charts when ready.
 function fetchInformation(commSelect) {
-  $("#showCommHeader").text(commSelect);
+  $("#showCommHeader").text(commSelect + "    TICKER:" + stringTooSymbol[commSelect]);
   let currency = "USD";
   let today = new Date();
   let todayString =
@@ -120,7 +120,7 @@ function fetchInformation(commSelect) {
     );
   }
   chart.buildChartWhenReady();
-  newsApi2(commSelect, todayString);
+  newsApi2(stringTooSymbol[commSelect], todayString);
 
   // Here will will add it to local storage for future button showing.
   addCommTooLocalStorage(commSelect);
