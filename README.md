@@ -5,6 +5,8 @@
 Buy and sell smarter.
 Search for and view commodities and currency pricing beside relevant news articles from a particular timeframe.
 
+![Website](/assets/images/screenShot.PNG)
+
 # Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
