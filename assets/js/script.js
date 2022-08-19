@@ -94,7 +94,7 @@ fastBtn.on("click", function (event) {
 // This is after a button press, either one of the fast buttons or fetch-buttons
 // This will start the api calls and buildng charts when ready.
 function fetchInformation(commSelect) {
-  $("#showCommHeader").text(commSelect);
+  $("#showCommHeader").text(commSelect + "    TICKER:" + stringTooSymbol[commSelect]);
   let currency = "USD";
   let today = new Date();
   let todayString =
@@ -120,11 +120,10 @@ function fetchInformation(commSelect) {
     );
   }
   chart.buildChartWhenReady();
-<<<<<<< HEAD
   // newsApi(commSelect, todayString);
-=======
   newsApi2(commSelect, todayString);
->>>>>>> 6cc91a84f072ee43f360ddd54cc43e06c19ab61e
+
+  newsApi2(stringTooSymbol[commSelect], todayString);
 
   // Here will will add it to local storage for future button showing.
   addCommTooLocalStorage(commSelect);
@@ -168,83 +167,6 @@ function newsApi(q, from) {
     });
 }
 
-<<<<<<< HEAD
 const theButton = document.querySelector(".button");
 
 
-=======
-function newsApi2(q, from) {
-  var requestUrl =
-    "https://newsdata.io/api/1/news?apikey=pub_10359c215f1fbd7f82f4a4f4b9c12d34b5bda&q=" +
-    q +
-    "&language=en";
-  fetch(requestUrl)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log(data.results);
-      let array = data.results;
-      var article = $("#news");
-      for (let index = 0; index < 3; index++) {
-        const newsData = array[index];
-
-        // console.log(newsData.title);
-        // console.log(news);
-        var newsEl = $("<div class=wrap>");
-        newsEl.attr("class", "card");
-        var imageEl = $("<img>");
-        imageEl.attr("class", "card-img-top");
-        // if no image is found, fill it with Bitcoin Pic
-        if (newsData.image_url == null) {
-          imageEl.attr(
-            "src",
-            "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/in/wp-content/uploads/2022/03/pexels-pixabay-315788-scaled.jpg"
-          );
-        } else {
-          // if image_url exist, then we're giving the newsData a source
-          imageEl.attr("src", newsData.image_url);
-        }
-        newsEl.attr("style", "width: 18rem");
-        newsEl.append(imageEl);
-        var titleEl = $("<h5>");
-        titleEl.attr("class", "card-title");
-        titleEl.text(newsData.title);
-        newsEl.append(titleEl);
-
-        var textEL = $("<p>");
-        textEL.attr("class", "card-text");
-        textEL.text(newsData.description);
-        newsEl.append(textEL);
-
-        var buttonEl = $("<a>");
-        buttonEl.attr("class", "btn btn-primary");
-        buttonEl.attr("href", newsData.link);
-        buttonEl.text("Link");
-        newsEl.append(buttonEl);
-
-        // console.log(newsEl);
-        article.append(newsEl);
-      }
-
-      /* <div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div> */
-
-      // description;
-      // link;
-      // pubDate;
-      // image_url;
-      // video_url;
-      // title;
-    })
-    .catch(function (data) {
-      console.log("Fail,", data);
-    });
-}
->>>>>>> 6cc91a84f072ee43f360ddd54cc43e06c19ab61e
