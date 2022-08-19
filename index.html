@@ -19,19 +19,20 @@
     <header class="header">
         <h1>Real Time Commodities</h1>
     </header>
-    <nav class = 'container d-flex justify-content-center'>;
-        <div class="dropdown">
+    <nav class = 'container'>;
+      <div class = 'row'>
+        <div class="dropdown col-4 ">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="dropDownTxt">
               Select Commodity
             </button>
             <ul class="dropdown-menu" id="com-dropdown" >
             </ul>
-          </div>
-        <button type="button" class="btn btn-primary" id="fetch-button">Fetch commodities</button>
-
+            <button type="button" class="btn btn-primary col-6" id="fetch-button">Fetch commodities</button>
+        </div>
+        <div id="StoredButtons" class = 'col-4'>
+        </div>
+      </div>
     </nav>
-    <div id="StoredButtons" class = 'container d-flex justify-content-center'>
-    </div>
 
     <div class="main-container container">
       <div class = 'row'> 
