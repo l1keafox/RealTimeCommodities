@@ -17,7 +17,7 @@ body {
   padding: 30px;
 }
 
-nav {
+nav, #StoredButtons {
   background-color: #607eaa;
   padding: 20px;
 }
