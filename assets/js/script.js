@@ -9,7 +9,7 @@ function displayCurrentPrice(rates) {
     priceHeader.text(i);
     let thePrice = $("<p>");
     thePrice.text(rates[i].toFixed(3));
-    priceEl.attr("class", "m-2 text-light bg-dark priceCard");
+    priceEl.attr("class", "m-2 priceCard");
     priceEl.append(priceHeader);
     priceEl.append(thePrice);
     baseEl.append(priceEl);
