@@ -2,44 +2,45 @@
   font-family: "Roboto", sans-serif;
 }
 
-body {
-}
-
 #com-dropdown {
-  max-height: 250px; /* you can change as you need it */
-  overflow: auto; /* to get scroll */
+  max-height: 250px; 
+  overflow: auto;
 }
 
 .header {
   text-align: center;
   background-color: #1c3879;
   color: #f9f5eb;
-  padding: 30px;
+  padding: 40px;
 }
 
-nav, #StoredButtons {
+nav {
   background-color: #607eaa;
-  padding: 10px;
+  padding: 8px;
 }
 
 .main-container {
   padding-top: 40px;
 }
 
+#showCommHeader {
+    text-align: center;
+    color: #1c3879;
+    font-weight: bolder;
+}
+
 #currentPrice {
-  /* top left, above chart, smaller */
+    justify-content: space-evenly;
+    color: #1c3879;
+    font-weight: bolder;
 }
 
 #graph {
-  /* large, slightly to left, borders */
+
 }
 
 #news {
-  /* under chart */
-}
 
-#wikipedia {
-  /* to the right of chart */
 }
 
 .footer {
@@ -47,3 +48,4 @@ nav, #StoredButtons {
   background-color: #1c3879;
   color: #f9f5eb;
 }
+
